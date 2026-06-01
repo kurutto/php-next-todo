@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class TodoController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $userId = $request->user()->id;
         $todo = Todo::create([
@@ -19,7 +20,7 @@ class TodoController extends Controller
         return $todo;
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $userId = $request->user()->id;
         $todo = Todo::where('user_id', $userId)->where('id', $id)->first();
@@ -39,7 +40,7 @@ class TodoController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $userId = $request->user()->id;
         $todos = Todo::where('user_id', $userId)->get();

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -16,9 +18,9 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:8'],
         ]);
         $user = User::create([
-            'name' => $validate['name'],
-            'email' => $validate['email'],
-            'password' => Hash::make($validate['password']), // bcrypt関数ではなくLaravel標準のものを使用
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']), // bcrypt関数ではなくLaravel標準のものを使用
         ]);
 
         return response()->json([
