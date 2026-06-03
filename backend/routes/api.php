@@ -1,12 +1,22 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TodoController;
-use Illuminate\Support\Facades\Route;
+use App\Events\TestNotification;
 
 Route::get('/health', function () {
     return ['status' => 'ok'];
 });
+
+Route::post('/broadcast-test', function () {
+    broadcast(new TestNotification('こんにちは'));
+
+    return response()->json([
+        'message' => 'sent',
+    ]);
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
