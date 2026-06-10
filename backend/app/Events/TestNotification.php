@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class TestNotification implements ShouldBroadcast
@@ -20,7 +20,11 @@ class TestNotification implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('test-channel'),
+            new PrivateChannel('test-private'),
         ];
+    }
+    public function broadcastAs(): string
+    {
+        return 'TestNotification';
     }
 }

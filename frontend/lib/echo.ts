@@ -2,6 +2,7 @@
 
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
+import { getCsrfToken } from "./getCsrf";
 
 declare global {
   interface Window {
@@ -24,6 +25,8 @@ export const getEcho = () => {
       wsPort: Number(process.env.NEXT_PUBLIC_REVERB_PORT!),
       forceTLS: false,
       enabledTransports: ["ws"],
+      authEndpoint: "http://localhost:8000/broadcasting/auth",
+      withCredentials: true,
     });
   }
   return echo;
